@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Code Scanner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://unpkg.com/html5-qrcode@2.3.9/html5-qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #reader {
+      width: 300px;
+      margin: auto;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      word-wrap: break-word;
+    }
+    a {
+      color: blue;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h2>📷 QR Code Scanner</h2>
+   <!-- ✅ Show the QR code image -->
+  <img src="WhatsApp Image 2025-06-04 at 7.25.10 PM.png" alt="QR Code" style="max-width: 300px; border: 1px solid #ccc; margin-bottom: 20px;" />
+  <div id="reader"></div>
+  <div id="result"></div>
+
+  <script>
+    function onScanSuccess(decodedText, decodedResult) {
+      document.getElementById("result").innerHTML = `
+        ✅ Scanned: <br><a href="${decodedText}" target="_blank">${decodedText}</a>
+      `;
+      html5QrcodeScanner.clear();
+    }
+
+    function onScanFailure(error) {
+      // Ignored errors
+    }
+
+    const html5QrcodeScanner = new Html5QrcodeScanner(
+      "reader",
+      { fps: 10, qrbox: 250 },
+      false
+    );
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+  </script>
+</body>
+</html>
+
